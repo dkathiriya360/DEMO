@@ -35,14 +35,4 @@ class MainClass {
         // display the frame view
         frame.setVisible(true)
     }
-
-//    def displayTemperature = {
-//        Temperature t = new Temperature() // call temperature class
-//    }
-//    def displayLength = {
-//        println("length class")
-//    }
-//    def displayWeight = {
-//        println("weight class")
-//    }
 }
