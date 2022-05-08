@@ -19,7 +19,7 @@ class MainClass {
 
         // compose the builder
         def frame = swing.frame(
-                title : 'Unit Converter', location : [200, 200], size : [400, 300],
+                title : 'Unit Converter', location : [500, 280], size : [400, 300],
                 defaultCloseOperation : WindowConstants.EXIT_ON_CLOSE) {
             label(text: "Unit Converter", horizontalAlignment: JLabel.CENTER, constraints: BorderLayout.NORTH)
             //boxLayout(axis: BoxLayout.Y_AXIS) {

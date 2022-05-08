@@ -1,17 +1,18 @@
-//import java.awt.*
+
 import javax.swing.*
+import java.awt.Color
 import java.awt.FlowLayout
 import java.awt.Font
+import java.awt.GridLayout
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
-import java.util.concurrent.Flow
 
 class Temperature {
     static JFrame frame
     static JLabel title, label, label2, output
     static JTextField inputText
     static JComboBox comboBox, comboBox2
-    static JPanel panel, panel2, panel3
+    static JPanel panel, panel2
     static JButton button
     int unit1 = 0
     int unit2 = 2
@@ -19,7 +20,7 @@ class Temperature {
 
 
     Temperature () {
-        frame = new JFrame(title : 'Temperature', location : [200, 200], size : [400, 300])
+        frame = new JFrame(title : 'Temperature', location : [500, 280], size : [400, 300])
         frame.setLayout(new FlowLayout())
 
         // create a list for temperature units
@@ -57,28 +58,31 @@ class Temperature {
         title.setFont(new Font("Serif", Font.BOLD, 20))
         label = new JLabel("From")
         label2 = new JLabel("To")
-        // TODO: Display result
-        //output = new JLabel("Result = $result")
+        output = new JLabel()
+        output.setForeground(Color.BLUE)
+        output.setFont(new Font("", Font.BOLD, 14));
 
-
-        // add button layout
+        // button layout
         button = new JButton("Enter")
+        button.setSize(150,65)
         button.addActionListener(new ActionListener() {
             @Override
             void actionPerformed(ActionEvent e) {
                 def val = inputText.getText()
                 result = calculateTemperature(Float.parseFloat(val))
-                println("Result = " + result)
+                String stringResult = "Result =  $result ${temperature[unit2]}"
+                output.setText(stringResult)
+                //println("Result = " + result)
             }
         })
 
         // textfield for user input
         inputText = new JTextField(15)
 
-        // create a panel; add labels and combobox
+        // create a panel
         panel = new JPanel()
-        panel2 = new JPanel() // for input text and button
-        panel3 = new JPanel() // for result
+        panel2 = new JPanel()
+        // add components to panels
         panel.add(label)
         panel.add(label)
         panel.add(comboBox)
@@ -86,14 +90,13 @@ class Temperature {
         panel.add(comboBox2)
         panel2.add(inputText)
         panel2.add(button)
-        //panel3.add(output)
+        panel2.add(output)
 
         // add components to frame
         panel.setLayout(new FlowLayout())
-        //frame.add(title)
+        panel2.setLayout(new GridLayout(0,2))
         frame.add(panel)
         frame.add(panel2)
-        frame.add(panel3)
         frame.show()
 
     }
