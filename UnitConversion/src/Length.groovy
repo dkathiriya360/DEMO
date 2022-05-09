@@ -1,4 +1,3 @@
-
 import javax.swing.*
 import java.awt.Color
 import java.awt.FlowLayout
@@ -7,7 +6,7 @@ import java.awt.GridLayout
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 
-class Temperature {
+class Length {
     static JFrame frame
     static JLabel label, label2, output
     static JTextField inputText
@@ -19,16 +18,16 @@ class Temperature {
     float result
 
 
-    Temperature () {
-        frame = new JFrame(title : 'Temperature', location : [500, 280], size : [400, 300])
+    Length () {
+        frame = new JFrame(title : 'Length', location : [500, 280], size : [400, 300])
         frame.setLayout(new FlowLayout())
 
-        // create a list for temperature units
-        String[] temperature = ["Celsius", "Kelvin", "Fahrenheit"]
+        // create a list for length units
+        String[] length = ["Kilometer","meter", "Mile", "feet", "Inch"]
 
         // add drop down menu for units
-        comboBox = new JComboBox(temperature)
-        comboBox2 = new JComboBox(temperature)
+        comboBox = new JComboBox(length)
+        comboBox2 = new JComboBox(length)
 
         // set default selected items
         comboBox.setSelectedIndex(0)
@@ -60,24 +59,24 @@ class Temperature {
         output.setForeground(Color.BLUE)
         output.setFont(new Font("", Font.BOLD, 14));
 
-        // button layout
+        // add button layout
         button = new JButton("Enter")
         button.setSize(150,65)
         button.addActionListener(new ActionListener() {
             @Override
             void actionPerformed(ActionEvent e) {
                 def val = inputText.getText()
-                result = calculateTemperature(Float.parseFloat(val))
-                String stringResult = "Result =  $result ${temperature[unit2]}"
+                result = calculateLength(Float.parseFloat(val))
+                String stringResult = "Result =  $result ${length[unit2]}"
                 output.setText(stringResult)
-                //println("Result = " + result)
+                // println("Result = " + result)
             }
         })
 
-        // textfield for user input
+        // text-field for user input
         inputText = new JTextField(15)
 
-        // create a panel
+        // create a panel;
         panel = new JPanel()
         panel2 = new JPanel()
         // add components to panels
@@ -99,28 +98,49 @@ class Temperature {
 
     }
 
-    // ["Celsius", "Kelvin", "Fahrenheit"] --> [0, 1, 2]
-    def calculateTemperature(double val) {
-        if (unit1 == 0 && unit2 == 1) {
-            return (val + 273.15)
+    // ["Kilometer","meter", "Mile", "feet", "Inch"] --> [0, 1, 2, 3, 4]
+    def calculateLength(def val) {
+        def meter = val
+        def answer = val
+
+        switch (unit1) {
+            case 0 :
+                meter = 1000 * val
+                break
+            case 1:
+                meter = val
+                break
+            case 2:
+                meter = 1609.344 * val
+                break
+            case 3:
+                meter = 0.3048 * val
+                break
+            case 4:
+                meter = 0.0254 * val
+                break
+
         }
-        else if (unit1 == 0 && unit2 == 2) {
-            return ((val*1.8) + 32)
+
+        switch (unit2) {
+            case 0 :
+                answer = 0.001 * meter
+                break
+            case 1:
+                answer = meter
+                break
+            case 2:
+                answer = 0.0006213712 * meter
+                break
+            case 3:
+                answer = 3.280839895 * meter
+                break
+            case 4:
+                answer = 39.37007874 * meter
+                break
+
         }
-        else if (unit1 == 1 && unit2 == 0) {
-            return (val - 273.15)
-        }
-        else if (unit1 == 1 && unit2 == 2) {
-            return ((val-273.15)*1.8 + 32)
-        }
-        else if (unit1 == 2 && unit2 == 0) {
-            return ((val-32)*(5/9))
-        }
-        else if (unit1 == 2 && unit2 == 1) {
-            return ((val-32)*(5/9) + 273.15)
-        }
-        else {
-            return val
-        }
+
+        return answer
     }
 }

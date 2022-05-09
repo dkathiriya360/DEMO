@@ -11,10 +11,10 @@ class MainClass {
             Temperature t = new Temperature() // call temperature class
         }
         def displayLength = {
-            println("length class")
+            Length l = new Length() // call Length class
         }
         def displayWeight = {
-            println("weight class")
+            Weight w = new Weight() // call Weight class
         }
 
         // compose the builder
